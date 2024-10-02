@@ -1,8 +1,28 @@
+<template>
+  <div id="VueDocPreviewRoot" class="root" :style=styler>
+    <div v-if="type === 'markdown' || type === 'code'">
+      <Markdown :value=actualValue :mdStyle=mdStyle />
+    </div>
+    <div v-else-if="type === 'text'">
+      <TextPreview :value=actualValue :textStyle=textStyle />
+    </div>
+    <div v-else-if="type === 'office'">
+      <Office :value=actualValue />
+    </div>
+    <div v-else>
+      <div>Prop type error, Type must be markdown/office/text/code!</div>
+    </div>
+  </div>
+  <HelloWorld></HelloWorld>
+</template>
+
 <script>
+import { ref, watch, computed, onMounted } from 'vue'
 import axios from 'axios'
-import Markdown from './components/Markdown'
-import TextPreview from './components/TextPreview'
-import Office from './components/Office'
+import Markdown from './components/Markdown.vue'
+import TextPreview from './components/TextPreview.vue'
+import Office from './components/Office.vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 const defaultRequestConfig = {
   method: 'get',
@@ -14,7 +34,8 @@ export default {
   components: {
     Markdown,
     TextPreview,
-    Office
+    Office,
+    HelloWorld
   },
   props: {
     type: {
@@ -47,25 +68,25 @@ export default {
     },
     requestConfig: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     }
   },
-  data: function () {
+  data() {
     return {
       tempValue: '',
-      parseComponet: 'Markdown',
+      parseComponent: 'Markdown',
       styler: ''
     }
   },
   watch: {
-    type: function (val) {
+    type(val) {
       this.updateType()
     }
   },
   computed: {
-    actualValue: function () {
+    actualValue() {
       this.tempValueC()
       if (this.type === 'office') {
         return `https://view.officeapps.live.com/op/view.aspx?src=${this.tempValue}`
@@ -76,17 +97,17 @@ export default {
       }
     }
   },
-  mounted: function () {
+  mounted() {
     this.updateType()
   },
   methods: {
-    tempValueC: function () {
+    tempValueC() {
       if (this.value) {
         this.tempValue = this.value
       } else {
         if (this.type !== 'office') {
           let self = this
-          Object.assign(defaultRequestConfig, this.requestConfig, {url: this.url})
+          Object.assign(defaultRequestConfig, this.requestConfig, { url: this.url })
           this.download(defaultRequestConfig).then(data => {
             self.tempValue = data
           }).catch(err => {
@@ -98,7 +119,7 @@ export default {
         }
       }
     },
-    download: function (config) {
+    download(config) {
       return new Promise((resolve, reject) => {
         axios(config).then(res => {
           const reader = new FileReader()
@@ -111,14 +132,12 @@ export default {
         })
       })
     },
-    setHeiht: function () {
+    setHeight() {
       let height = this.height
       if (height < 0) height = 0
       if (height > 100) {
-        // height大于100时将视作固定高度，单位px
         this.styler = `height: ${height}px`
       } else {
-        // height小于等于100时为百分比高度
         if (this.type === 'office') {
           const contentHeight = this.getClientHeight() * height / 100
           this.styler = `height: ${contentHeight}px`
@@ -127,51 +146,33 @@ export default {
         }
       }
     },
-    getClientHeight: function () {
+    getClientHeight() {
       const clientHeight = document.documentElement.clientHeight
       return clientHeight
     },
-    updateType: function () {
+    updateType() {
       switch (this.type) {
         case 'markdown':
-          this.parseComponet = 'Markdown'
+          this.parseComponent = 'Markdown'
           break
         case 'text':
-          this.parseComponet = 'TextPreview'
+          this.parseComponent = 'TextPreview'
           break
         case 'office':
-          this.parseComponet = 'Office'
+          this.parseComponent = 'Office'
           break
         case 'code':
-          this.parseComponet = 'Markdown'
+          this.parseComponent = 'Markdown'
           break
       }
-      this.setHeiht()
+      this.setHeight()
     }
   },
-  render: function (h) {
-    let component = <div>Prop type error, Type must be markdown/office/text/code!</div>
-    if (this.type === 'markdown' || this.type === 'code') {
-      component = <Markdown value={this.actualValue} mdStyle={this.mdStyle} />
-    } else if (this.type === 'text') {
-      component = <TextPreview value={this.actualValue} textStyle={this.textStyle} />
-    } else if (this.type === 'office') {
-      component = <Office value={this.actualValue} />
-    }
-    return (
-      <div
-        id="VueDocPreviewRoot"
-        class="root"
-        style={this.styler}>
-        {component}
-      </div>
-    )
-  }
 }
 </script>
 
-<style lang="less" scoped>
-  .root {
-    height: 100%;
-  }
+<style scoped>
+.root {
+  height: 100%;
+}
 </style>

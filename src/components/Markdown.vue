@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Marked from 'marked'
+import {marked as Marked} from 'marked'
 import HLJS from '../lib/highlight'
 import {objectDeepMerge, objectStyleToStringStyle} from '../lib/util'
 

@@ -1,10 +1,10 @@
-import hljs from 'highlight.js/lib/highlight' // 引入highlight.js
+import hljs from 'highlight.js/lib/core';
 
 // import 'highlight.js/styles/googlecode.css'
-import 'highlight.js/styles/arduino-light.css' // 引入样式
+import 'highlight.js/styles/arduino-light.css' // 
 
 /**
- * 引入语言包
+ * 
  */
 import javascript from 'highlight.js/lib/languages/javascript'
 import cpp from 'highlight.js/lib/languages/cpp'
@@ -29,8 +29,6 @@ import json from 'highlight.js/lib/languages/json'
 /**
  * Registe code language
  * We can set abbreviation or alias of code language(such as language 'javascript' and 'js' will also realize the syntax highlighting of JavaScript).
- * 注册语言包
- * 我们可以设置代码语言的缩写名或别名
  */
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('js', javascript) // Abbreviation
@@ -54,7 +52,7 @@ hljs.registerLanguage('typescript', typescript)
 hljs.registerLanguage('ts', typescript) // Abbreviation
 hljs.registerLanguage('json', json)
 
-hljs.highlightCode = function () { // 自定义highlightCode方法，将只执行一次的逻辑去掉
+hljs.highlightCode = function () { // 
   let blocks = document.querySelectorAll('pre code');
   [].forEach.call(blocks, hljs.highlightBlock)
 }

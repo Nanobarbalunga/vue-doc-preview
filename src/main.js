@@ -1,9 +1,5 @@
-import demo from './demo'
-import { createApp } from "vue";
+import { createApp } from 'vue'
+import './style.css'
+import App from './App.vue'
 
-const app = createApp();
-// Vue.config.productionTip = false
-
-app.component('VueDocPreview', demo)
-
-app.mount('#app')
+createApp(App).mount('#app')

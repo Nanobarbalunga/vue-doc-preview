@@ -1,5 +1,5 @@
 <script>
-import {objectDeepMerge, objectStyleToStringStyle} from '../lib/util'
+import { objectDeepMerge, objectStyleToStringStyle } from '../lib/util'
 export default {
   name: 'TextPreview',
   props: {
@@ -30,14 +30,10 @@ export default {
       pre.style.cssText = objectStyleToStringStyle(styleObject)
     }
   },
-  render: function (h) {
-    return (
-      <div
-        class="content"
-        ref={this.refId}>
-        <pre>{this.value}</pre>
-      </div>
-    )
-  }
 }
 </script>
+<template>
+  <div class="content" :ref=refId>
+    <pre>{{ value }}</pre>
+  </div>
+</template>
