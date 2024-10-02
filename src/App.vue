@@ -1,9 +1,6 @@
 <template>
-    <VueDocPreview :value="docValue" :type="docType" 
-    aoffice-styler-ui="EmbededView" 
-    office-styler-ui="FullScreen" 
-    aboffice-styler-ui="Interactive" 
-    />
+  <VueDocPreview :value="docValue" :type="docType" 
+    :office-styler-ui="styleUi" />
 </template>
 
 <script>
@@ -14,14 +11,29 @@ export default {
   components: {
     VueDocPreview
   },
-  
+
   data() {
     return {
       docValue: 'newteach.pbworks.com%2Ff%2Fele%2Bnewsletter.docx',
       docType: 'office',
+      styleUi: "EmbededView",
+      // styleUi: "FullScreen",
+      // styleUi: "Interactive",
     }
   },
-  
+
 }
 </script>
 
+<style>
+div[aria-label="Pop-out"] {
+display: none;
+ }
+div[aria-label="toolbar"] {
+width: 52px;
+}      
+
+div.ms-Fabric{
+  display: none;
+}
+</style>

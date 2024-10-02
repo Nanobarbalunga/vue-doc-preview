@@ -41,6 +41,9 @@ export default {
     window.removeEventListener('resize', this.setIframeSize); // Rimuove il listener quando il componente viene smontato
   },
   methods: {
+    applyStyleToIframe() {
+      
+    },
     setIframeSize() {
       const container = this.$refs.iframeContainer;
       

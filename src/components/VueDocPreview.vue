@@ -124,8 +124,29 @@ export default {
       */
       this.tempValueC()
       if (this.type === 'office') {
-        const ui=this.officeStylerUi.length?`&ui=${this.officeStylerUi}`:'';
-        return `https://view.officeapps.live.com/op/view.aspx?src=${this.tempValue}${ui}`
+        const ui=this.officeStylerUi.length?`${this.officeStylerUi}`:'';
+        let options='';
+        let mode='';
+        switch(ui.toLowerCase()){
+          case 'embededview':
+          case 'embeded':
+          case 'embed':
+            mode='embed';
+            break;
+          // case 'fullscreen':
+          //   mode='fullscreen';
+          //   break;
+          // case 'interactive':
+          //   mode='interactive';
+          //   break;
+          // case 'print':
+          //   mode='print';
+          //   break;
+          default:
+            mode='view';
+        }
+        console.log(mode)
+        return `https://view.officeapps.live.com/op/${mode}.aspx?src=${this.tempValue}${options}`
       } else if (this.type === 'code' && this.language) {
         return `\`\`\`${this.language}\n${this.tempValue}\n\`\`\``
       } else {
