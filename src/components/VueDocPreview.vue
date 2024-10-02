@@ -1,15 +1,15 @@
 <template>
   <div id="VueDocPreviewRoot" class="root" :style=styler>
-    <div v-if="type === 'markdown' || type === 'code'">
+    <div v-if="type === 'markdown' || type === 'code'" :style="{'height': '100%', 'width': '100%'}">
       <Markdown :value=actualValue :mdStyle=mdStyle />
     </div>
-    <div v-else-if="type === 'text'">
+    <div v-else-if="type === 'text'" :style="{'height': '100%', 'width': '100%'}">
       <TextPreview :value=actualValue :textStyle=textStyle />
     </div>
-    <div v-else-if="type === 'office'">
+    <div v-else-if="type === 'office'" :style="styler">
       <Office :value=actualValue />
     </div>
-    <div v-else>
+    <div v-else :style="{'height': '100%', 'width': '100%'}">
       <div>{{ errorText }}</div>
     </div>
   </div>
@@ -26,9 +26,9 @@
     npm install marked  
 //-------------------------------------------------------------*/
 import axios from 'axios'
-import Markdown from './components/Markdown.vue'
-import TextPreview from './components/TextPreview.vue'
-import Office from './components/Office.vue'
+import Markdown from './VueDocPreview/components/Markdown.vue'
+import TextPreview from './VueDocPreview/components/TextPreview.vue'
+import Office from './VueDocPreview/components/Office.vue'
 
 const defaultRequestConfig = {
   method: 'get',
@@ -41,7 +41,6 @@ export default {
     Markdown,
     TextPreview,
     Office,
-    HelloWorld
   },
   props: {
     errorText: {
@@ -57,6 +56,10 @@ export default {
       default: ''
     },
     height: {
+      type: Number,
+      default: 90
+    },
+    width: {
       type: Number,
       default: 90
     },
@@ -96,6 +99,9 @@ export default {
     }
   },
   computed: {
+    getStyler() {
+        return `${this.stylerHeight} ${this.stylerWidth}`	 
+    },
     actualValue() {
       this.tempValueC()
       if (this.type === 'office') {
@@ -146,19 +152,38 @@ export default {
       let height = this.height
       if (height < 0) height = 0
       if (height > 100) {
-        this.styler = `height: ${height}px`
+        this.stylerHeight = `height: ${height}px`
       } else {
         if (this.type === 'office') {
           const contentHeight = this.getClientHeight() * height / 100
-          this.styler = `height: ${contentHeight}px`
+          this.stylerHeight = `height: ${contentHeight}px`
         } else {
-          this.styler = `height: ${height}%`
+          this.stylerHeight = `height: ${height}%`
         }
       }
     },
     getClientHeight() {
       const clientHeight = document.documentElement.clientHeight
       return clientHeight
+    },
+    setWidth() {
+      let width = this.width
+      if (width < 0) width = 0
+      if (width > 100) {
+        this.stylerWidth = `width: ${width}px`
+      } else {
+        if (this.type === 'office') {
+          const contentWidth = this.getClientWidth() * width / 100
+          this.stylerWidth = `width: ${contentWidth}px`
+        } else {
+          this.stylerWidth = `width: ${width}%`
+        }
+      }
+    },
+
+    getClientWidth() {
+      const clientWidth = document.documentElement.clientWidth
+      return clientWidth
     },
     updateType() {
       switch (this.type) {
@@ -176,6 +201,7 @@ export default {
           break
       }
       this.setHeight()
+      this.setWidth()
     }
   },
 }
