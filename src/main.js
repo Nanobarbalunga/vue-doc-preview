@@ -1,9 +1,9 @@
-import Vue from 'vue'
 import demo from './demo'
+import { createApp } from "vue";
 
-Vue.config.productionTip = false
+const app = createApp();
+// Vue.config.productionTip = false
 
-// 开发环境 DEMO
-new Vue({
-  render: h => h(demo)
-}).$mount('#app')
+app.component('VueDocPreview', demo)
+
+app.mount('#app')
