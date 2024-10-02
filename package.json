@@ -1,6 +1,6 @@
 {
   "name": "vue-doc-preview",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A vue document preview component",
   "keywords": [
     "document",
@@ -8,14 +8,11 @@
     "preview"
   ],
   "main": "./dist/vueDocPreview.umd.min.js",
-  "author": "cainsyake(cainsyake@qq.com)",
+  "originalAuthor": "cainsyake(cainsyake@qq.com)",
+  "author": "NanoBarbalunga(nanobarbalunga@gmail.com)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cainsyake/vue-doc-preview.git"
-  },
-  "bugs": {
-    "url": "https://github.com/cainsyake/vue-doc-preview/issues",
-    "email": "cainsyake@qq.com"
+    "url": "https://github.com/Nanobarbalunga/vue-doc-preview.git"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -27,7 +24,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "highlight.js": "^9.12.0",
-    "marked": "^0.4.0"
+    "marked": "^0.4.0",
+    "vue-doc-preview": "file:"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.11",

@@ -1,9 +1,10 @@
 # vue-doc-preview
 A vue document preview component, this component will display the contents of the document on the page.
+It is a forked version from cainsyake (https://github.com/cainsyake/vue-doc-preview) in order to update it to the version of vue3.
 
-English Readme | [中文说明书](https://github.com/cainsyake/vue-doc-preview/blob/master/README-CN.md)
+English Readme
 
-[Live Demo](http://vdp.cainsyake.com/)
+[Original Live Demo](http://vdp.cainsyake.com/)
 
 ## Use
 ### import
