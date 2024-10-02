@@ -7,7 +7,7 @@
       <TextPreview :value=actualValue :textStyle=textStyle />
     </div>
     <div v-else-if="type === 'office'" :style="styler">
-      <Office :value=actualValue />
+      <Office :value=actualValue :height="officeStylerHeight" :width="officeStylerWidth" />
     </div>
     <div v-else :style="{'height': '100%', 'width': '100%'}">
       <div>{{ errorText }}</div>
@@ -55,6 +55,14 @@ export default {
       type: String,
       default: ''
     },
+    officeStylerHeight: {
+      type: String,
+      default: '1000px'
+    },
+    officeStylerWidth: {
+      type: String,
+      default: '1000px'
+    },
     height: {
       type: Number,
       default: 90
@@ -100,7 +108,7 @@ export default {
   },
   computed: {
     getStyler() {
-        return `${this.stylerHeight} ${this.stylerWidth}`	 
+        return `${this.stylerHeight} ${this.stylerWidth};`	 
     },
     actualValue() {
       this.tempValueC()
