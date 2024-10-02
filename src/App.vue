@@ -10,19 +10,16 @@
       <Office :value=actualValue />
     </div>
     <div v-else>
-      <div>Prop type error, Type must be markdown/office/text/code!</div>
+      <div>{{ errorText }}</div>
     </div>
   </div>
-  <HelloWorld></HelloWorld>
 </template>
 
 <script>
-import { ref, watch, computed, onMounted } from 'vue'
 import axios from 'axios'
 import Markdown from './components/Markdown.vue'
 import TextPreview from './components/TextPreview.vue'
 import Office from './components/Office.vue'
-import HelloWorld from './components/HelloWorld.vue'
 
 const defaultRequestConfig = {
   method: 'get',
@@ -38,6 +35,10 @@ export default {
     HelloWorld
   },
   props: {
+    errorText: {
+      type: String,
+      default: 'Prop type error, Type must be markdown/office/text/code!'
+    },
     type: {
       type: String,
       default: 'md'
