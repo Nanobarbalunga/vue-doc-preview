@@ -1,5 +1,9 @@
 <template>
-    <VueDocPreview :value="docValue" :type="docType" />
+    <VueDocPreview :value="docValue" :type="docType" 
+    aoffice-styler-ui="EmbededView" 
+    office-styler-ui="FullScreen" 
+    aboffice-styler-ui="Interactive" 
+    />
 </template>
 
 <script>

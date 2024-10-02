@@ -63,6 +63,10 @@ export default {
       type: String,
       default: '1000px'
     },
+    officeStylerUi: {
+      type: String,
+      default: ''//EmbededView | FullScreen | Interactive
+    },
     height: {
       type: Number,
       default: 90
@@ -111,9 +115,17 @@ export default {
         return `${this.stylerHeight} ${this.stylerWidth};`	 
     },
     actualValue() {
+      //
+      /*
+      src=http%3A%2F%2Fnewteach%2Epbworks%2Ecom%3A80%2Ff%2Fele%2Bnewsletter%2Edocx
+      wdEmbedCode=1
+      wdPrint=0" 
+      wdStartOn=0
+      */
       this.tempValueC()
       if (this.type === 'office') {
-        return `https://view.officeapps.live.com/op/view.aspx?src=${this.tempValue}`
+        const ui=this.officeStylerUi.length?`&ui=${this.officeStylerUi}`:'';
+        return `https://view.officeapps.live.com/op/view.aspx?src=${this.tempValue}${ui}`
       } else if (this.type === 'code' && this.language) {
         return `\`\`\`${this.language}\n${this.tempValue}\n\`\`\``
       } else {
